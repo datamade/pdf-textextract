@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  extract:
+    build: .
+    environment:
+      # Control the number of concurrent tasks and other details of make
+      # executionñ
+      MAKEFLAGS: "-j 4"
+      INPUT_DIR: "/app/input" 
+      INTERMEDIATE_DIR: "app/intermediate"
+      OUTPUT_DIR: "app/output"
+    volumes:
+      # Set these to change where you are reading pdfs from and
+      # writing processed json to
+      - "./pdfs:/app/input"
+      - "./intermediate:/app/intermediate"
+      - "./texts:/app/output"
