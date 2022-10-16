@@ -1,8 +1,7 @@
 version: "3.9"
 services:
   extract:
-    #image: ghcr.io/datamade/pdf-textextract:latest
-    build: .
+    image: ghcr.io/datamade/pdf-textextract:latest
     environment:
       # Control the number of concurrent tasks and other details of make
       # executionñ
