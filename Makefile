@@ -10,6 +10,7 @@ all :
 	$(MAKE) pages
 	$(MAKE) text
 
+# FILENAME.json for every FILENAME in the encoded_filenames directory
 ALL_JSON = $(patsubst $(INTERMEDIATE_DIR)/encoded_filenames/%,$\
                   $(OUTPUT_DIR)/%.json,$\
                   $(wildcard $(INTERMEDIATE_DIR)/encoded_filenames/*))
@@ -17,6 +18,12 @@ ALL_JSON = $(patsubst $(INTERMEDIATE_DIR)/encoded_filenames/%,$\
 .PHONY : text
 text : $(ALL_JSON)
 
+# for every page image file associated with a FILENAME create .txt
+# targets, i.e.
+# page_images/FILENAME/page-001.ppm => ocr_text/FILENAME/page-001.ppm.text
+#
+# there are two levels of substitution going on here, which is why
+# we need to do this as function instead of just an implicit dependency
 define ocr_text
 $(patsubst $(INTERMEDIATE_DIR)/page_images/%,$\
       $(INTERMEDIATE_DIR)/ocr_text/%.txt,$\
