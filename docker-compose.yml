@@ -1,14 +1,15 @@
 version: "3.9"
 services:
   extract:
-    image: ghcr.io/datamade/pdf-textextract:latest
+    #image: ghcr.io/datamade/pdf-textextract:latest
+    build: .
     environment:
       # Control the number of concurrent tasks and other details of make
       # executionñ
       MAKEFLAGS: "-j 4"
       INPUT_DIR: "/app/input" 
-      INTERMEDIATE_DIR: "app/intermediate"
-      OUTPUT_DIR: "app/output"
+      INTERMEDIATE_DIR: "/app/intermediate"
+      OUTPUT_DIR: "/app/output"
     volumes:
       # Set these to change where you are reading pdfs from and
       # writing processed json to
