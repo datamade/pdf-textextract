@@ -1,7 +1,6 @@
 FROM python:3.10-slim-bullseye
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  libgl1 \
   make \
   poppler-utils \
   tesseract-ocr \
