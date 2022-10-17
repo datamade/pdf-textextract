@@ -10,6 +10,7 @@ However, well formed PDFs can always be opened by PDF programs and have their co
 2. Perform a little image processing, with [opencv](https://docs.opencv.org/), to make those images more amenable to OCR.
 3. OCR the individual images using [tesseract](https://en.wikipedia.org/wiki/Tesseract_(software)).
 4. Recombine the OCRed texts into a single file.
+
 We perform these steps using [Make](https://en.wikipedia.org/wiki/Make_(software)) because it gives us easy parallelism and a nice way to restart processes if they get interrupted.
 
 ## How to use
