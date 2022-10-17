@@ -57,3 +57,8 @@ When everything is done you'll have a lot of files in your output directory (by 
 ```
 
 The names of the output files are based on a hash of the original PDF filename. We do this because Make is a bit sensitive to forms of filenames and this just avoids a lot of complexity. 
+
+
+## This repository
+
+This repository contains Makefile and scripts and a Dockerfile for building an image, as well as a github action to publish to [Github's contianer registry](https://github.com/datamade/pdf-textextract/pkgs/container/pdf-textextract).
