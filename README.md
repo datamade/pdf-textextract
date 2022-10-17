@@ -61,4 +61,4 @@ The names of the output files are based on a hash of the original PDF filename. 
 
 ## This repository
 
-This repository contains Makefile and scripts and a Dockerfile for building an image, as well as a github action to publish to [Github's contianer registry](https://github.com/datamade/pdf-textextract/pkgs/container/pdf-textextract).
+This repository contains the Makefile and Python scripts and a Dockerfile for building an image, as well as a github action to publish to [Github's contianer registry](https://github.com/datamade/pdf-textextract/pkgs/container/pdf-textextract).
