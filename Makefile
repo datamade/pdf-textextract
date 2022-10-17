@@ -56,6 +56,7 @@ pages : $(page_images)
 
 $(INTERMEDIATE_DIR)/page_images/% : $(INTERMEDIATE_DIR)/encoded_filenames/%
 	mkdir -p $@
+	touch $@
 	- pdftoppm -r 150 $< $@/page
 
 

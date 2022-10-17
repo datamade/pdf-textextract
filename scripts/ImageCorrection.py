@@ -221,40 +221,47 @@ import os
 import sys
 import subprocess
 
+
 def transparent_to_white(image):
     # If alpha transparency
     if len(image.shape) <= 2:
         return image
 
-    if(image.shape[2] == 4):
-        #convert transparent to white
+    if image.shape[2] == 4:
+        # convert transparent to white
         alpha_channel = image[:, :, 3]
-        _, mask = cv.threshold(alpha_channel, 254, 255, cv.THRESH_BINARY)  # binarize mask
+        _, mask = cv.threshold(
+            alpha_channel, 254, 255, cv.THRESH_BINARY
+        )  # binarize mask
         color = image[:, :, :3]
         image = cv.bitwise_not(cv.bitwise_not(color, mask=np.uint8(mask)))
 
     return image
 
+
 def remove_shadow(image):
     rgb_planes = cv.split(image)
     result_planes = []
     for plane in rgb_planes:
-        dilated_img = cv.dilate(plane, np.ones((5,5), np.uint8))
+        dilated_img = cv.dilate(plane, np.ones((5, 5), np.uint8))
         bg_img = cv.medianBlur(dilated_img, 11)
         diff_img = 255 - cv.absdiff(plane, bg_img)
         result_planes.append(diff_img)
 
     return cv.merge(result_planes)
 
+
 def detect_rotation(image):
-    #if len(image.shape) >= 3:
+    # if len(image.shape) >= 3:
     img_gray = cv.cvtColor(image, cv.COLOR_BGR2YUV)
     image_y = np.zeros(img_gray.shape[0:2], np.uint8)
     image_y[:, :] = img_gray[:, :, 0]
 
     image_blurred = cv.GaussianBlur(image_y, (3, 3), 0)
     img_edges = cv.Canny(image_blurred, 250, 250, apertureSize=3)
-    lines = cv.HoughLinesP(img_edges, 1, math.pi / 180.0, 100, minLineLength=100, maxLineGap=20)
+    lines = cv.HoughLinesP(
+        img_edges, 1, math.pi / 180.0, 100, minLineLength=100, maxLineGap=20
+    )
 
     if lines is None:
         return 0
@@ -270,66 +277,79 @@ def detect_rotation(image):
     median_angle = np.median(angles)
     return median_angle
 
+
 def rotate_image(mat, angle):
-  # angle in degrees
+    # angle in degrees
 
-  height, width = mat.shape[:2]
-  image_center = (width/2, height/2)
+    height, width = mat.shape[:2]
+    image_center = (width / 2, height / 2)
 
-  rotation_mat = cv.getRotationMatrix2D(image_center, angle, 1.)
+    rotation_mat = cv.getRotationMatrix2D(image_center, angle, 1.0)
 
-  abs_cos = abs(rotation_mat[0,0])
-  abs_sin = abs(rotation_mat[0,1])
+    abs_cos = abs(rotation_mat[0, 0])
+    abs_sin = abs(rotation_mat[0, 1])
 
-  bound_w = int(height * abs_sin + width * abs_cos)
-  bound_h = int(height * abs_cos + width * abs_sin)
+    bound_w = int(height * abs_sin + width * abs_cos)
+    bound_h = int(height * abs_cos + width * abs_sin)
 
-  rotation_mat[0, 2] += bound_w/2 - image_center[0]
-  rotation_mat[1, 2] += bound_h/2 - image_center[1]
+    rotation_mat[0, 2] += bound_w / 2 - image_center[0]
+    rotation_mat[1, 2] += bound_h / 2 - image_center[1]
 
-  rotated_mat = cv.warpAffine(mat, rotation_mat, (bound_w, bound_h), borderValue=(255,255,255))
-  return rotated_mat
+    rotated_mat = cv.warpAffine(
+        mat, rotation_mat, (bound_w, bound_h), borderValue=(255, 255, 255)
+    )
+    return rotated_mat
+
 
 def get_rotation_data(original_image, rotated_image, angle, output_file):
     (oh, ow) = original_image.shape[:2]
     (rh, rw) = rotated_image.shape[:2]
     output_data = dict()
     origin = dict()
-    origin['x'] = int(rw/2)
-    origin['y'] = int(rh/2)
-    output_data['origin'] = origin
+    origin["x"] = int(rw / 2)
+    origin["y"] = int(rh / 2)
+    output_data["origin"] = origin
     translation = dict()
-    translation['x'] = int((ow-rw)/2)
-    translation['y'] = int((oh-rh)/2)
-    output_data['translation'] = translation
-    output_data['degrees'] = int(angle)
-    output_data['filename'] = output_file
+    translation["x"] = int((ow - rw) / 2)
+    translation["y"] = int((oh - rh) / 2)
+    output_data["translation"] = translation
+    output_data["degrees"] = int(angle)
+    output_data["filename"] = output_file
 
     return json.dumps(output_data)
 
+
 def is_face_down(image_path):
-    tesseract_output = subprocess.Popen(['tesseract', image_path, "-", "--psm", "0"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, bufsize=1, universal_newlines=True).stdout.read()
+    tesseract_output = subprocess.Popen(
+        ["tesseract", image_path, "-", "--psm", "0"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        bufsize=1,
+        universal_newlines=True,
+    ).stdout.read()
     try:
-        tesseract_rotation = re.search('(?<=Rotate: )\d+', tesseract_output).group(0)
-        if tesseract_rotation != '0':
+        tesseract_rotation = re.search("(?<=Rotate: )\d+", tesseract_output).group(0)
+        if tesseract_rotation != "0":
             return True
     except Exception as e:
         return False
 
     return False
 
+
 def save_image(image, name):
-    if cv.__version__.split(".")[0] == '3':
+    if cv.__version__.split(".")[0] == "3":
         cv.imwrite(name, image)
     else:
-        cv.imwrite(name, image, [cv.IMWRITE_TIFF_XDPI, 150, cv.IMWRITE_TIFF_YDPI, 150]) 
+        cv.imwrite(name, image, [cv.IMWRITE_TIFF_XDPI, 150, cv.IMWRITE_TIFF_YDPI, 150])
+
 
 def main():
     src = sys.argv[1]
-    original_image = cv.imread(src)#, cv.IMREAD_UNCHANGED)
+    original_image = cv.imread(src)  # , cv.IMREAD_UNCHANGED)
 
     # Remove transparency from pngs
-    no_transparent_image = transparent_to_white(original_image);
+    no_transparent_image = transparent_to_white(original_image)
 
     # Image Rotation
     rotated_image = no_transparent_image.copy()
@@ -338,9 +358,11 @@ def main():
         rotated_image = rotate_image(no_transparent_image, angle)
     # Remove shadows
     shadows_out = remove_shadow(rotated_image)
-    shadows_out = cv.copyMakeBorder(shadows_out, 2, 2, 2, 2, cv.BORDER_CONSTANT, value=[1, 0, 0])
+    shadows_out = cv.copyMakeBorder(
+        shadows_out, 2, 2, 2, 2, cv.BORDER_CONSTANT, value=[1, 0, 0]
+    )
 
-    #save image
+    # save image
     output_file_name = sys.argv[2]
     save_image(shadows_out, output_file_name)
 
@@ -350,5 +372,5 @@ def main():
         save_image(shadows_out, output_file_name)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
