@@ -9,7 +9,7 @@ However, well formed PDFs can always be opened by PDF programs and have their co
 1. Render the pages of a PDF as images.
 2. Perform a little image processing to make those images more amenable to OCR.
 3. OCR the individual images.
-4. Recombine the OCRed texts into a single file.
+4. Recombine the OCRed texts into a single file using [tesseract](https://en.wikipedia.org/wiki/Tesseract_(software)).
 
 We perform these steps using [Make](https://en.wikipedia.org/wiki/Make_(software)) because it gives us easy parallelism and a nice way to restart processes if they get interrupted.
 
@@ -26,7 +26,7 @@ The `docker-compose.yml` gives an example of how you might use this `pdf-textrac
       - "./texts:/app/output"
 ```
 
-If you PDFs are in a directory called `~/lots_of_pdfs`, you can adjust the `docker-compose.yml` like:
+If your PDFs are in a directory called `~/lots_of_pdfs`, you can adjust the `docker-compose.yml` like:
 
 ```yml
     volumes:
@@ -57,3 +57,8 @@ When everything is done you'll have a lot of files in your output directory (by 
 ```
 
 The names of the output files are based on a hash of the original PDF filename. We do this because Make is a bit sensitive to forms of filenames and this just avoids a lot of complexity. 
+
+
+## This repository
+
+This repository contains the Makefile and Python scripts and a Dockerfile for building an image, as well as a github action to publish to [Github's contianer registry](https://github.com/datamade/pdf-textextract/pkgs/container/pdf-textextract).
