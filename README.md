@@ -56,4 +56,4 @@ When everything is done you'll have a lot of files in your output directory (by 
 }
 ```
 
-The filename of the output files are based on hash of the original PDF filename. We do this because Make is a bit sensitive to forms of filenames and this just avoids a lot of complexity. 
+The names of the output files are based on hash of the original PDF filename. We do this because Make is a bit sensitive to forms of filenames and this just avoids a lot of complexity. 
