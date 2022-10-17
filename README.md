@@ -36,3 +36,22 @@ If you PDFs are in a directory called "~/lots_of_pdfs", you can adjust the `dock
       - "./intermediate:/app/intermediate"
       - "./texts:/app/output"
 ```
+
+Once you've got that set the way you want it, you run
+
+```bash
+docker-compose up
+```
+
+and you'll start processing the PDFs. When everything is done you'll have a lot of files in your output directory (by default `./texts`) that look like `d356e527274c55c51c8008af74dfd08ce3051710f336341556e3d1d4eb7c6cf2.json` and have contents like:
+
+```json
+{
+    "filename": "6.pdf",
+    "pages": [
+        " \n\n \n\nWade L. Robison and Linda Reeser\nEthical Decision-Making in Social Work\n\nChapter 6\n\nJustice\n\nIntroduction\n1. Particular justice\n. The formal principle of justice\n. Substantive principles of justice\n. Using princ.."
+    ]
+}
+```
+
+The filename of the output files are based on hash of the original PDF filename. We do this because Make is a bit sensitive to forms of filenames and this just avoids a lot of complexity. 
