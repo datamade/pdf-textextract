@@ -43,7 +43,9 @@ Once you've got that set the way you want it, you run
 docker-compose up
 ```
 
-and you'll start processing the PDFs. When everything is done you'll have a lot of files in your output directory (by default `./texts`) that look like `d356e527274c55c51c8008af74dfd08ce3051710f336341556e3d1d4eb7c6cf2.json` and have contents like:
+and you'll start processing the PDFs. 
+
+When everything is done you'll have a lot of files in your output directory (by default `./texts`) that look like `d356e527274c55c51c8008af74dfd08ce3051710f336341556e3d1d4eb7c6cf2.json` and have contents like:
 
 ```json
 {
