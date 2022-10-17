@@ -9,7 +9,7 @@ However, well formed PDFs can always be opened by PDF programs and have their co
 1. Render the pages of a PDF as images.
 2. Perform a little image processing to make those images more amenable to OCR.
 3. OCR the individual images.
-4. Recombine the OCRed texts into a single file.
+4. Recombine the OCRed texts into a single file using [tesseract](https://en.wikipedia.org/wiki/Tesseract_(software)).
 
 We perform these steps using [Make](https://en.wikipedia.org/wiki/Make_(software)) because it gives us easy parallelism and a nice way to restart processes if they get interrupted.
 
