@@ -26,7 +26,7 @@ The `docker-compose.yml` gives an example of how you might use this `pdf-textrac
       - "./texts:/app/output"
 ```
 
-If you PDFs are in a directory called `~/lots_of_pdfs`, you can adjust the `docker-compose.yml` like:
+If your PDFs are in a directory called `~/lots_of_pdfs`, you can adjust the `docker-compose.yml` like:
 
 ```yml
     volumes:
