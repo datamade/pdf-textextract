@@ -208,18 +208,14 @@ Derived from AXA Group Operations S.A.'s Parsr project. Their license is below:
 This script performs all (TODO Deskewing) steps to improve Tesseract accuracy:
 See --> https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality
 """
-from __future__ import print_function
-
-import numpy as np
-import cv2 as cv
 import json
 import math
-from pathlib import Path
-
 import re
-import os
-import sys
 import subprocess
+import sys
+
+import cv2 as cv
+import numpy as np
 
 
 def transparent_to_white(image):
@@ -328,10 +324,10 @@ def is_face_down(image_path):
         universal_newlines=True,
     ).stdout.read()
     try:
-        tesseract_rotation = re.search("(?<=Rotate: )\d+", tesseract_output).group(0)
+        tesseract_rotation = re.search(r"(?<=Rotate: )\d+", tesseract_output).group(0)
         if tesseract_rotation != "0":
             return True
-    except Exception as e:
+    except:
         return False
 
     return False

@@ -1,7 +1,7 @@
-import sys
 import json
-from pathlib import Path
 import os
+import sys
+from pathlib import Path
 
 text_list = []
 encoded_filename = sys.argv[1]

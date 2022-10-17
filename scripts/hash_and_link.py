@@ -1,7 +1,7 @@
-import sys
 import csv
-from pathlib import Path
 import hashlib
+import sys
+from pathlib import Path
 
 outdir = Path(sys.argv[1])
 
