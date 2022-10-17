@@ -5,7 +5,7 @@ RUN apt-get update && \
     echo "deb https://notesalexp.org/tesseract-ocr5/bullseye/ bullseye main" | \
       tee /etc/apt/sources.list.d/notesalexp.list > /dev/null &&  \
     wget -O - https://notesalexp.org/debian/alexp_key.asc | apt-key add - && \
-    apt-get --purge -y remove gnupg wget && \ 
+    apt-get --purge -y autoremove gnupg wget && \ 
     apt-get update && apt-get install --no-install-recommends -y \
       make \
       poppler-utils \
