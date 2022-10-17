@@ -4,7 +4,7 @@ Extracting text from PDFs seems pretty simple until you try. Many (maybe most PD
 
 But the PDF "format" is a vast and shadowy forest, and there are lots of PDFs where extracting the text by looking into the file is impossible or very difficult.
 
-However, well formed PDFs can always be opened by PDF programs and have their contents rendered on a screen. And that's where we start in our approach to text extraction. 
+However, well formed PDFs can always be opened by PDF programs and have their contents rendered on a screen. And that's where we start in our approach to text extraction. Here's what we do.
 
 1. Render the pages of a PDF as images.
 2. Perform a little image processing to make those images more amenable to OCR.
