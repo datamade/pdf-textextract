@@ -6,8 +6,8 @@ But the PDF "format" is a vast and shadowy forest, and there are lots of PDFs wh
 
 However, well formed PDFs can always be opened by PDF programs and have their contents rendered on a screen. And that's where we start in our approach to text extraction. Here's what we do.
 
-1. Render the pages of a PDF as images.
-2. Perform a little image processing to make those images more amenable to OCR.
+1. Render the pages of a PDF as images with [poppler-utils](https://en.m.wikipedia.org/wiki/Poppler_(software)).
+2. Perform a little image processing, with [opencv](https://docs.opencv.org/), to make those images more amenable to OCR.
 3. OCR the individual images using [tesseract](https://en.wikipedia.org/wiki/Tesseract_(software)).
 4. Recombine the OCRed texts into a single file.
 We perform these steps using [Make](https://en.wikipedia.org/wiki/Make_(software)) because it gives us easy parallelism and a nice way to restart processes if they get interrupted.
