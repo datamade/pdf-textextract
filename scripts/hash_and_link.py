@@ -13,7 +13,7 @@ for filename in sys.stdin:
     m.update(str(in_path).encode())
     out_path = outdir / m.hexdigest()
     if out_path.exists():
-        if Path(out_path.readlink()) == in_path:
+        if out_path.samefile(in_path):
             continue
         # hash collisions should be very rare, but
         # let's deal with them
