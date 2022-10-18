@@ -1,6 +1,6 @@
 # PDF Text Extraction, the simplistic and resilient way.
 
-Extracting text from PDFs seems pretty simple until you try. Most PDFs are nice creatures and so wonderful tools like [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) just work. If just have a few pdfs that you want to extract text from, you should start there.
+Extracting text from PDFs seems pretty simple until you try. Most PDFs are happy little trees and so wonderful tools like [pdftotext](https://en.wikipedia.org/wiki/Pdftotext) just work. If just have a few pdfs that you want to extract text from, you should start there.
 
 But the PDF "format" is a vast and shadowy forest, and there are lots of PDFs where extracting the text by looking into the file is impossible or very difficult.
 
