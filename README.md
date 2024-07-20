@@ -62,3 +62,6 @@ The names of the output files are based on a hash of the original PDF filename. 
 ## This repository
 
 This repository contains the Makefile and Python scripts and a Dockerfile for building an image, as well as a github action to publish to [Github's contianer registry](https://github.com/datamade/pdf-textextract/pkgs/container/pdf-textextract).
+
+## Funding
+The open sourcing of this work was funded by Project Recognize. Funding for Project Recognize is provided by an R01 grant from the National Institute on Alcohol Abuse and Alcoholism within the National Institutes of Health(NIH) under grant number [R01AA029076](https://reporter.nih.gov/search/fQ3qCVpYLkyVX-Y18Ku7eA/project-details/10700962). You can find out more at [ProjectRecognize.org](https://www.projectrecognize.org).
